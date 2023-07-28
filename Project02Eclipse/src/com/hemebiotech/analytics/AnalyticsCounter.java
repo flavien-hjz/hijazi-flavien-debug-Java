@@ -1,43 +1,47 @@
 package com.hemebiotech.analytics;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class AnalyticsCounter {
-	private static int headacheCount = 0;
-	private static int rashCount = 0;
-	private static int pupilCount = 0;
 	
-	public static void main(String args[]) throws Exception {
+	private ISymptomReader reader;
+	private ISymptomWriter writer;
+
+	public AnalyticsCounter(ISymptomReader reader, ISymptomWriter writer) {
+		this.reader = reader;
+		this.writer = writer;
+	}
 		
-		BufferedReader reader = new BufferedReader (new FileReader("symptoms.txt"));
-		String line = reader.readLine();
-
-		int i = 0;
-		int headCount = 0;
-		while (line != null) {
-			i++;
-			System.out.println("symptom from file: " + line);
-			if (line.equals("headache")) {
-				headacheCount++;
-				System.out.println("number of headaches: " + headCount);
+	public List<String> getSymptoms(){
+		return reader.GetSymptoms();
+	}
+	
+	public Map<String,Integer> countSymptoms(List<String> symptoms){
+		Map<String,Integer> symptomsMap = new HashMap<>();
+		
+		try {
+			for (String i : symptoms) {
+				if (symptomsMap.containsKey(i)) {
+					symptomsMap.put(i, symptomsMap.get(i)+1);
+				} else {
+					symptomsMap.put(i, 1);
+				}
 			}
-			else if (line.equals("rash")) {
-				rashCount++;
-			}
-			else if (line.contains("pupils")) {
-				pupilCount++;
-			}
-
-			line = reader.readLine();
+		} catch (Exception e) {
+			System.out.println(e);
 		}
 		
+		return symptomsMap;	}
 		
-		FileWriter writer = new FileWriter ("result.out");
-		writer.write("headache: " + headacheCount + "\n");
-		writer.write("rash: " + rashCount + "\n");
-		writer.write("dialated pupils: " + pupilCount + "\n");
-		writer.close();
+	public Map<String,Integer> sortSymptoms(Map<String,Integer> symptoms){
+		return new TreeMap<>(symptoms);	
 	}
+		
+	public void writeSymptoms(Map<String,Integer> symptoms) {
+		writer.writeSymptoms(symptoms);
+	}
+		
 }
