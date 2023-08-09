@@ -4,10 +4,9 @@ import java.util.List;
 
 /**
  * 
- * @author Flavien Hijazi
- * created 27/07/23
+ * @author Flavien Hijazi created 27/07/23
  *
- * Anything that will read symptoms data from a source.
+ *         Anything that will read symptoms data from a source.
  * 
  */
 public interface ISymptomReader {

@@ -14,6 +14,9 @@ public class WriteSymptomDataToFile implements ISymptomWriter {
 	/**
 	 * @param symptoms the HashMap used to write symptoms and their occurrences in a
 	 *                 new file result.out
+	 * 
+	 *                 This method writes in a file named result.out the symptoms
+	 *                 from the HashMap, followed by their occurrences.
 	 */
 
 	@Override

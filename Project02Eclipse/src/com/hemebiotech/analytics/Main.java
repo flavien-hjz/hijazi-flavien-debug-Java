@@ -4,8 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Flavien Hijazi
- * created 31/07/23
+ * @author Flavien Hijazi created 31/07/23
  */
 
 public class Main {
